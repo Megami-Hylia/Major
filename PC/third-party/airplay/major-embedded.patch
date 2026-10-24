@@ -1,0 +1,420 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -87,6 +87,9 @@
+ 
+ add_executable( uxplay uxplay.cpp )
+ target_link_libraries( uxplay renderers airplay )
++if(WIN32)
++  target_link_libraries(uxplay user32)
++endif()
+ if (DBUS_FOUND)
+       target_link_libraries( uxplay ${DBUS_LIBRARY})
+ endif()
+diff --git a/uxplay.cpp b/uxplay.cpp
+--- a/uxplay.cpp
++++ b/uxplay.cpp
+@@ -1,3 +1,4 @@
++/* Modified 2026-10-21 for Major: Native HWND embedding, authenticated UI events, process handshake and screen-only capabilities. */
+ /**
+  * RPiPlay - An open-source AirPlay mirroring server for Raspberry Pi
+  * Copyright (C) 2019 Florian Draschbacher
+@@ -21,6 +22,8 @@
+  */
+ 
+ #include <stddef.h>
++#include <cerrno>
++#include <cstdlib>
+ #include <cstring>
+ #include <unistd.h>
+ #include <ctype.h>
+@@ -93,6 +96,15 @@
+ #else
+   #define DEFAULT_SRGB_FIX false
+ #endif
++
++static bool major_embedded = false;
++
++static void major_event(const char *event) {
++    if (major_embedded) {
++        printf("MAJOR_AIRPLAY\t%s\t%s\n", getenv("MAJOR_EVENT_NONCE"), event);
++        fflush(stdout);
++    }
++}
+ 
+ static const char *appname = DEFAULT_NAME;
+ static std::string server_name = appname;
+@@ -623,6 +635,18 @@
+     relaunch_video = false;
+     g_main_loop_quit(gmainloop);
+     return G_SOURCE_REMOVE;
++}
++
++static gpointer major_control_input(gpointer data) {
++    char command[32];
++    while (fgets(command, sizeof(command), stdin)) {
++        if (!strcmp(command, "STOP\n")) {
++            g_idle_add(handle_signal, NULL);
++            return NULL;
++        }
++    }
++    g_idle_add(handle_signal, NULL);
++    return NULL;
+ }
+ 
+ static BOOL WINAPI CtrlHandler(DWORD signal) {
+@@ -1123,6 +1147,7 @@
+     printf("          audio packets are dumped. \"aud\"= unknown format.\n");
+     printf("-v        Displays version information\n");
+     printf("-h        Displays this help\n");
++    printf("-wid n    Embed video in external window n (decimal uintptr); Major events on stdout\n");
+     printf("-rc fn    Read startup options from file \"fn\" instead of ~/.uxplayrc, etc\n");
+     printf("Startup options in $UXPLAYRC, ~/.uxplayrc, or ~/.config/uxplayrc are\n");
+     printf("applied first (command-line options may modify them): format is one \n");
+@@ -1497,6 +1522,24 @@
+         std::string arg(argv[i]);
+         if (arg == "-rc") {
+             i++;  //specifies startup file: has already been processed
++        } else if (arg == "-wid") {
++            if (++i >= argc) { fprintf(stderr, "-wid requires a decimal window handle\n"); exit(1); }
++            char *end = NULL;
++            errno = 0;
++            const char *value = argv[i];
++            if (!*value || strspn(value, "0123456789") != strlen(value)) {
++                fprintf(stderr, "-wid requires a decimal window handle\n"); exit(1);
++            }
++            unsigned long long handle = strtoull(value, &end, 10);
++            if (errno || *end || !handle || handle > UINTPTR_MAX) {
++                fprintf(stderr, "-wid handle is out of range\n"); exit(1);
++            }
++            video_renderer_set_window_handle((uintptr_t) handle);
++            const char *nonce = getenv("MAJOR_EVENT_NONCE");
++            if (!nonce || strlen(nonce) != 32 || strspn(nonce, "0123456789abcdef") != 32) {
++                fprintf(stderr, "-wid requires MAJOR_EVENT_NONCE (32 lowercase hex characters)\n"); exit(1);
++            }
++            major_embedded = true;
+         } else if (arg == "-allow") {
+             if (!option_has_value(i, argc, arg, argv[i+1])) exit(1);
+             i++;
+@@ -2482,6 +2525,11 @@
+ 
+     /* bit 27 of Features determines whether the AirPlay2 client-pairing protocol will be used (1) or not (0) */
+     dnssd_set_airplay_features(dnssd, 27, (int) setup_legacy_pairing);
++    if (major_embedded) {
++        // Major exposes screen mirroring, not photos, HLS, DRM video or HEVC.
++        const int unsupported[] = {0, 1, 2, 4, 5, 13, 42};
++        for (int bit : unsupported) dnssd_set_airplay_features(dnssd, bit, 0);
++    }
+     return 0;
+ }
+ 
+@@ -2575,6 +2623,7 @@
+ }
+ 
+ extern "C" int video_set_codec(void *cls, video_codec_t codec) {
++    major_event("connected");
+     bool video_is_h265 = (codec == VIDEO_CODEC_H265);
+     if (mux_to_file) {
+         mux_renderer_choose_video_codec(video_is_h265);
+@@ -2586,6 +2635,11 @@
+ }
+ 
+ extern "C" void display_pin(void *cls, char *pin) {
++    if (major_embedded) {
++        printf("MAJOR_AIRPLAY\t%s\tpin\t%.4s\n", getenv("MAJOR_EVENT_NONCE"), pin);
++        fflush(stdout);
++        return;
++    }
+     int margin = 10;
+     int spacing = 3;
+     char *image = create_pin_display(pin, margin, spacing);
+@@ -2632,6 +2686,7 @@
+     open_connections--;
+     LOGD("Open connections: %i", open_connections);
+     if (open_connections == 0) {
++        major_event("disconnected");
+         remote_clock_offset = 0;
+         if (use_audio) {
+             audio_renderer_stop();
+@@ -2651,6 +2706,7 @@
+ }
+ 
+ extern "C" void conn_reset (void *cls, int reason) {
++    major_event("disconnected");
+     switch (reason) {
+     case 1:
+         LOGI("*** ERROR lost connection with client (network problem?)");
+@@ -3343,6 +3399,15 @@
+     }
+     parse_arguments (argc, argv);
+ 
++    /* The parent assigns the Windows job before any GStreamer child can start. */
++    if (major_embedded) {
++        char command[16];
++        if (!fgets(command, sizeof(command), stdin) || strcmp(command, "START\n")) {
++            fprintf(stderr, "Embedded startup handshake missing\n");
++            return 1;
++        }
++    }
++
+ #if !defined(__APPLE__) || !defined(UXPLAY_HAVE_APPLE_P2P)
+     if (peer_to_peer) {
+         fprintf(stderr, "option -p2p requires macOS and the Apple Bonjour DNS-SD backend\n");
+@@ -3669,6 +3734,13 @@
+         stop_dnssd();
+         cleanup();
+     }
++    major_event("ready");
++#ifdef _WIN32
++    if (major_embedded) {
++        GThread *control = g_thread_new("major-control", major_control_input, NULL);
++        g_thread_unref(control);
++    }
++#endif
+     reconnect:
+     compression_type = 0;
+     close_window = new_window_closing_behavior;
+diff --git a/renderers/video_renderer.c b/renderers/video_renderer.c
+--- a/renderers/video_renderer.c
++++ b/renderers/video_renderer.c
+@@ -1,3 +1,4 @@
++/* Modified 2026-10-21 for Major: Decoded-frame notification for the embedded receiver. */
+ /**
+  * RPiPlay - An open-source AirPlay mirroring server for Raspberry Pi
+  * Copyright (C) 2019 Florian Draschbacher
+@@ -24,8 +25,68 @@
+ #include <gst/app/gstappsrc.h>
+ #include "video_renderer.h"
+ #include <gst/video/videooverlay.h>
++#ifdef _WIN32
++#include <windows.h>
++#endif
+ 
+ static uintptr_t external_window_handle = 0;
++static gint major_first_frame = 0;
++
++#ifdef _WIN32
++static HWND major_canvas_parent = NULL;
++static HWND major_canvas_window = NULL;
++static HANDLE major_canvas_ready = NULL;
++
++static DWORD WINAPI major_canvas_thread(LPVOID unused) {
++    /* D3D11 subclasses its overlay HWND. That HWND must belong to this process,
++     * while WPF owns only its parent container. Keep its message pump alive. */
++    HANDLE ready = major_canvas_ready;
++    typedef HANDLE (WINAPI *get_context_fn)(HWND);
++    typedef HANDLE (WINAPI *set_context_fn)(HANDLE);
++    HMODULE user32 = GetModuleHandleW(L"user32.dll");
++    get_context_fn get_context = (get_context_fn) GetProcAddress(user32, "GetWindowDpiAwarenessContext");
++    set_context_fn set_context = (set_context_fn) GetProcAddress(user32, "SetThreadDpiAwarenessContext");
++    if (get_context && set_context) set_context(get_context(major_canvas_parent));
++    RECT rect = {0};
++    GetClientRect(major_canvas_parent, &rect);
++    major_canvas_window = CreateWindowExW(WS_EX_NOPARENTNOTIFY, L"STATIC", L"Major AirPlay video",
++        WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | SS_BLACKRECT,
++        0, 0, MAX(1, rect.right), MAX(1, rect.bottom), major_canvas_parent, NULL,
++        GetModuleHandleW(NULL), NULL);
++    SetEvent(ready);
++    if (!major_canvas_window) return 1;
++    g_printerr("Embedded D3D11 canvas created in receiver process (%ld x %ld)\n", rect.right, rect.bottom);
++    UINT_PTR timer = SetTimer(NULL, 0, 50, NULL);
++    MSG message;
++    while (GetMessageW(&message, NULL, 0, 0) > 0) {
++        if (message.message == WM_TIMER && message.wParam == timer) {
++            if (!IsWindow(major_canvas_parent)) break;
++            RECT next = {0};
++            if (GetClientRect(major_canvas_parent, &next) &&
++                (next.right != rect.right || next.bottom != rect.bottom)) {
++                rect = next;
++                MoveWindow(major_canvas_window, 0, 0, MAX(1, rect.right), MAX(1, rect.bottom), TRUE);
++            }
++        } else if (message.message == WM_KEYDOWN &&
++                   (message.wParam == VK_F11 || message.wParam == VK_ESCAPE)) {
++            PostMessageW(major_canvas_parent, message.message, message.wParam, message.lParam);
++            continue;
++        }
++        TranslateMessage(&message);
++        DispatchMessageW(&message);
++    }
++    if (timer) KillTimer(NULL, timer);
++    DestroyWindow(major_canvas_window);
++    return 0;
++}
++#endif
++
++static GstPadProbeReturn major_frame_probe(GstPad *pad, GstPadProbeInfo *info, gpointer data) {
++    if (external_window_handle && g_atomic_int_compare_and_exchange(&major_first_frame, 0, 1)) {
++        g_print("MAJOR_AIRPLAY\t%s\tstreaming\n", g_getenv("MAJOR_EVENT_NONCE"));
++    }
++    return GST_PAD_PROBE_OK;
++}
+ 
+ static GstBusSyncReply
+ window_handle_bus_sync_handler(GstBus *bus, GstMessage *message, gpointer user_data) {
+@@ -44,7 +105,20 @@
+  * If it has not already been called when the "prepare_window_handle" message is received, GStreamer
+  * will create its own window (which is currently the case on all supported platforms) */
+ void video_renderer_set_window_handle(uintptr_t handle) {
++#ifdef _WIN32
++    major_canvas_parent = (HWND) handle;
++    major_canvas_ready = CreateEventW(NULL, TRUE, FALSE, NULL);
++    if (!major_canvas_ready) g_error("Cannot create embedded video readiness event");
++    HANDLE thread = CreateThread(NULL, 0, major_canvas_thread, NULL, 0, NULL);
++    if (!thread) g_error("Cannot start embedded video message pump");
++    DWORD result = WaitForSingleObject(major_canvas_ready, 5000);
++    CloseHandle(thread);
++    CloseHandle(major_canvas_ready);
++    if (result != WAIT_OBJECT_0 || !major_canvas_window) g_error("Cannot create embedded video child window");
++    external_window_handle = (uintptr_t) major_canvas_window;
++#else
+     external_window_handle = handle;
++#endif
+ }
+ 
+ #define SECOND_IN_NSECS 1000000000UL
+@@ -488,6 +562,17 @@
+             }
+         }
+ #endif
++        if (external_window_handle && !hls_video && !strcmp(renderer_type[i]->codec, h264)) {
++            gchar *sink_name = g_strdup_printf("%s_%s", videosink, renderer_type[i]->codec);
++            GstElement *sink = gst_bin_get_by_name(GST_BIN(renderer_type[i]->pipeline), sink_name);
++            g_free(sink_name);
++            if (!sink) g_error("Major embedded video sink missing");
++            GstPad *pad = gst_element_get_static_pad(sink, "sink");
++            if (!pad) g_error("Major embedded video sink pad missing");
++            gst_pad_add_probe(pad, GST_PAD_PROBE_TYPE_BUFFER, major_frame_probe, NULL, NULL);
++            gst_object_unref(pad);
++            gst_object_unref(sink);
++        }
+         renderer_type[i]->bus = gst_element_get_bus(renderer_type[i]->pipeline);
+         gst_bus_set_sync_handler(renderer_type[i]->bus, window_handle_bus_sync_handler, NULL, NULL);
+         gst_element_set_state (renderer_type[i]->pipeline, GST_STATE_READY);
+@@ -552,6 +637,7 @@
+     }
+     renderer = NULL;
+     first_packet = true;
++    g_atomic_int_set(&major_first_frame, 0);
+ #ifdef X_DISPLAY_FIX
+     X11_search_attempts = 0;
+ #endif
+diff --git a/lib/raop_handlers.h b/lib/raop_handlers.h
+--- a/lib/raop_handlers.h
++++ b/lib/raop_handlers.h
+@@ -1,3 +1,4 @@
++/* Modified 2026-10-21 for Filo Mirror: Validate untrusted SETUP device, authentication and encryption fields. */
+ /**
+  *  Copyright (C) 2018  Juho Vähä-Herttua
+  *
+@@ -644,6 +645,13 @@
+         char *deviceID = NULL;
+         plist_t req_deviceid_node = plist_dict_get_item(req_root_node, "deviceID");
+         plist_get_string_val(req_deviceid_node, &deviceID);  
++        if (!PLIST_IS_STRING(req_deviceid_node) || !deviceID || !*deviceID) {
++            plist_mem_free(deviceID);
++            plist_free(res_root_node);
++            plist_free(req_root_node);
++            http_response_init(response, "RTSP/1.0", 400, "Bad Request");
++            return;
++        }
+ 
+ 
+         /* RFC2617 Digest authentication (md5 hash) of uxplay client-access password, if set */
+@@ -698,10 +706,23 @@
+                 char nonce_string[33] = { '\0' };
+                 //bool stale = false;  //not implemented
+                 if (len && authorization) {
+-                    const char *ptr = strstr(authorization, "nonce=\"") +  strlen("nonce=\"");
+-                    strncpy(nonce_string, ptr, 32);
++                    const char *nonce_field = strstr(authorization, "nonce=\"");
++                    while (nonce_field && nonce_field > authorization &&
++                           nonce_field[-1] != ' ' && nonce_field[-1] != '\t' && nonce_field[-1] != ',') {
++                        nonce_field = strstr(nonce_field + 1, "nonce=\"");
++                    }
++                    bool valid_nonce = false;
++                    if (nonce_field) {
++                        const char *ptr = nonce_field + strlen("nonce=\"");
++                        const char *end = strchr(ptr, '"');
++                        if (end && end - ptr == 32 && strspn(ptr, "0123456789abcdefABCDEF") == 32) {
++                            memcpy(nonce_string, ptr, 32);
++                            valid_nonce = true;
++                        }
++                    }
+                     const char *method = http_request_get_method(request);
+-                    conn->authenticated = pairing_digest_verify(method, authorization, password);
++                    conn->authenticated = valid_nonce && method && password && raop->nonce &&
++                        !strcmp(nonce_string, raop->nonce) && pairing_digest_verify(method, authorization, password);
+ 		    if (!conn->authenticated) {
+                         // if random_pw is used, the auth_fail_count will be the number of times it is displayed after creation
+                         if (len != -1) {
+@@ -743,6 +764,9 @@
+                     strncat(response_text, "\"", 80 - strlen(response_text) - 1);
+                     http_response_init(response, "RTSP/1.0", 401, "Unauthorized");
+                     http_response_add_header(response, "WWW-Authenticate", response_text);
++                    plist_mem_free(deviceID);
++                    plist_free(res_root_node);
++                    plist_free(req_root_node);
+                     return;
+                 }
+             }
+@@ -783,6 +807,13 @@
+         }
+ 
+         plist_get_data_val(req_eiv_node, &eiv, &eiv_len);
++        if (!eiv || eiv_len != sizeof(aesiv)) {
++            free(eiv);
++            plist_free(res_root_node);
++            plist_free(req_root_node);
++            http_response_init(response, "RTSP/1.0", 400, "Bad Request");
++            return;
++        }
+         memcpy(aesiv, eiv, 16);
+         free(eiv);	
+         logger_log(raop->logger, LOGGER_DEBUG, "eiv_len = %llu", eiv_len);
+@@ -795,6 +826,13 @@
+         char* ekey = NULL;
+         uint64_t ekey_len = 0;
+         plist_get_data_val(req_ekey_node, &ekey, &ekey_len);
++        if (!ekey || ekey_len != sizeof(eaeskey)) {
++            free(ekey);
++            plist_free(res_root_node);
++            plist_free(req_root_node);
++            http_response_init(response, "RTSP/1.0", 400, "Bad Request");
++            return;
++        }
+         memcpy(eaeskey,ekey,72);
+         free(ekey);
+         logger_log(raop->logger, LOGGER_DEBUG, "ekey_len = %llu", ekey_len);
+diff --git a/lib/pairing.c b/lib/pairing.c
+--- a/lib/pairing.c
++++ b/lib/pairing.c
+@@ -1,3 +1,4 @@
++/* Modified 2026-10-21 for Filo Mirror: Validate parsed Digest authentication tokens before use. */
+ /**
+  *  Copyright (C) 2018  Juho Vähä-Herttua
+  *  Copyright (C) 2020  Jaslo Ziska
+@@ -243,6 +244,9 @@
+ bool
+ pairing_digest_verify(const char *method, const char * authorization, const char *password) {
+   /* RFC 2617 HTTP md5 Digest password authentication */
++    if (!method || !authorization || !password) {
++        return false;
++    }
+     size_t authlen = strlen(authorization);
+     char *sentence = (char *) malloc(authlen + 1);
+     if (!sentence) {
+@@ -295,6 +299,14 @@
+         cnonce = get_token(&cursor, "cnonce", '\"', '\"');
+     }
+     response = get_token(&cursor, "response", '\"', '\"');
++
++    /* Untrusted Digest headers may omit any token, including nonce/qop fields. */
++    if (!username || !realm || !nonce || !uri || !response ||
++        (qop && (!nc || !cnonce)) || strlen(response) != 32 ||
++        strspn(response, "0123456789abcdefABCDEF") != 32) {
++        free(sentence);
++        return false;
++    }
+ 
+ #ifdef test_digest
+     printf("username: [%s]  realm: [%s]\n", username, realm);

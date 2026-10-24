@@ -1,0 +1,31 @@
+<UserControl Foreground="{DynamicResource Ink}" FontFamily="Segoe UI" FontSize="14" x:Class="Major.ReceiverWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Loaded="OnLoaded">
+  <Grid Margin="24">
+    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <Grid Margin="0,0,0,24"><StackPanel><TextBlock Text="Ricevi da Android" FontSize="24" FontWeight="SemiBold"/><TextBlock Text="Apri Major sul telefono, associa questo PC e condividi lo schermo." Foreground="{DynamicResource Muted}" Margin="0,6,0,0"/></StackPanel><Button Content="Interrompi ricezione" x:Name="StopReceiverButton" Click="StopClick" HorizontalAlignment="Right" VerticalAlignment="Top"/></Grid>
+    <Grid Grid.Row="1"><Grid.ColumnDefinitions><ColumnDefinition Width="300"/><ColumnDefinition Width="24"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+      <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><StackPanel Margin="0,0,8,0">
+        <Border Background="{DynamicResource Surface}" CornerRadius="8" Padding="20"><StackPanel>
+          <TextBlock Text="Questo computer" Style="{StaticResource Section}"/><TextBlock x:Name="PcNameText" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,16"/>
+          <TextBlock Text="Indirizzo da inserire sul telefono" Margin="0,0,0,6"/><ComboBox x:Name="AddressCombo" AutomationProperties.Name="Indirizzo di questo PC"/>
+          <TextBlock Text="Porta 49977 · Stessa rete Wi-Fi" Foreground="{DynamicResource Muted}" FontSize="12" Margin="0,8,0,20"/>
+          <TextBlock Text="Codice temporaneo" Margin="0,0,0,6"/>
+          <TextBox x:Name="PairCodeBox" IsReadOnly="True" TextWrapping="Wrap" FontFamily="Consolas" FontSize="16" AutomationProperties.Name="Codice temporaneo di associazione"/>
+          <TextBlock x:Name="PairExpiryText" FontSize="12" Foreground="{DynamicResource Muted}" Margin="0,8,0,12"/>
+          <Button Content="Nuovo codice" Click="NewCodeClick" x:Name="NewCodeButton"/>
+          <TextBlock Text="Il codice vale per un solo telefono. Comunicalo solo al dispositivo che vuoi associare." Style="{StaticResource MutedText}" FontSize="12" Margin="0,12,0,0"/>
+        </StackPanel></Border>
+        <TextBlock Text="Dopo l'associazione" Style="{StaticResource Section}" Margin="0,24,0,12"/>
+        <TextBlock Text="Sul telefono premi Condividi schermo e accetta la richiesta di Android. Questa modalità trasmette solo video: non richiede Debug USB e non offre il controllo remoto." Style="{StaticResource MutedText}" Margin="0,0,0,16"/>
+        <TextBlock Text="La chiusura di questa finestra interrompe la ricezione. Puoi fermare la condivisione anche dal telefono o dalla sua notifica." Style="{StaticResource MutedText}" Margin="0,0,0,16"/>
+        <Button Content="Revoca telefoni associati" Click="RevokeClick" x:Name="RevokeButton"/>
+        <TextBlock Text="Se la connessione non arriva, verifica l'indirizzo e consenti Major sulla rete privata nel firewall di Windows." Style="{StaticResource MutedText}" FontSize="12" Margin="0,16,0,0"/>
+      </StackPanel></ScrollViewer>
+      <Border Grid.Column="2" Background="#101112" CornerRadius="8" ClipToBounds="True"><Grid>
+        <Image x:Name="VideoImage" Stretch="Uniform" AutomationProperties.Name="Schermo Android ricevuto"/>
+        <StackPanel x:Name="WaitingPanel" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="340" Margin="24"><TextBlock Text="In attesa dello schermo" Foreground="White" FontSize="22" FontWeight="SemiBold" TextAlignment="Center"/><TextBlock Text="Il video appare qui dopo il consenso sul telefono." Foreground="#C6C9CA" TextAlignment="Center" Margin="0,12,0,0"/></StackPanel>
+        <Border Background="#CC101112" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="12,8" Margin="12"><TextBlock x:Name="VideoInfo" Text="Nessun video ricevuto" Foreground="White" FontSize="12"/></Border>
+      </Grid></Border>
+    </Grid>
+    <Border Grid.Row="2" Background="{DynamicResource Surface}" CornerRadius="6" Padding="12" Margin="0,20,0,0"><TextBlock x:Name="ReceiverStatus" Text="Preparazione del ricevitore…" AutomationProperties.LiveSetting="Polite"/></Border>
+  </Grid>
+</UserControl>

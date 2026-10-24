@@ -1,0 +1,36 @@
+<UserControl Foreground="{DynamicResource Ink}" FontFamily="Segoe UI" FontSize="14" x:Class="Major.AirPlayWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:Major" Loaded="OnLoaded" PreviewKeyDown="OnPreviewKeyDown">
+  <Grid x:Name="PageGrid" Margin="24">
+    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <StackPanel x:Name="TitlePanel" Margin="0,0,0,22"><TextBlock Text="Ricevi da iPhone/iPad" FontSize="24" FontWeight="SemiBold"/><TextBlock Text="Duplica schermo e audio sulla stessa rete locale, senza app sul dispositivo." Foreground="{DynamicResource Muted}" Margin="0,6,0,0"/></StackPanel>
+    <Grid Grid.Row="1"><Grid.ColumnDefinitions><ColumnDefinition x:Name="SidebarColumn" Width="300"/><ColumnDefinition x:Name="GutterColumn" Width="24"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+      <ScrollViewer x:Name="Sidebar" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><StackPanel Margin="0,0,8,0">
+        <TextBlock Text="Nome in Duplica schermo" Style="{StaticResource Section}"/><TextBox x:Name="ReceiverNameBox" MaxLength="50" AutomationProperties.Name="Nome ricevitore AirPlay"/>
+        <TextBlock Text="Il nome si applica al prossimo avvio." Foreground="{DynamicResource Muted}" FontSize="12" Margin="0,8,0,16"/>
+        <Button x:Name="StartButton" Content="Attiva ricezione" Style="{StaticResource Primary}" Click="StartClick"/>
+        <Border Background="{DynamicResource Surface}" BorderBrush="{DynamicResource SheetBorder}" BorderThickness="1" CornerRadius="6" Padding="16" Margin="0,20,0,20"><StackPanel>
+          <TextBlock Text="Codice sul dispositivo" FontWeight="SemiBold"/>
+          <TextBlock x:Name="PinText" Text="—" FontFamily="Consolas" FontSize="32" Margin="0,8,0,6" AutomationProperties.Name="Codice AirPlay corrente"/>
+          <TextBlock x:Name="PinHint" Text="Il codice appare quando iPhone o iPad richiede l'accesso." Style="{StaticResource MutedText}" FontSize="12"/>
+        </StackPanel></Border>
+        <TextBlock Text="Dal tuo iPhone o iPad" Style="{StaticResource Section}"/>
+        <TextBlock Text="1. Collegati alla stessa rete del PC.&#10;2. Apri Centro di Controllo.&#10;3. Tocca Duplica schermo (due rettangoli).&#10;4. Scegli il nome di questo ricevitore.&#10;5. Inserisci il codice mostrato qui." Style="{StaticResource MutedText}" Margin="0,0,0,20"/>
+        <TextBlock Text="Se il PC non compare" Style="{StaticResource Section}"/>
+        <TextBlock Text="Evita la rete ospiti e l'isolamento dei dispositivi sul router. Consenti Major e il ricevitore sulla rete privata nel firewall. VPN e filtri multicast possono impedire la scoperta." Style="{StaticResource MutedText}" FontSize="12"/>
+        <TextBlock Text="Video e audio ricevuti; nessun controllo remoto. Alcuni contenuti protetti possono apparire neri. Il backend UxPlay 1.74 è sperimentale." Style="{StaticResource MutedText}" FontSize="12" Margin="0,16,0,0"/>
+      </StackPanel></ScrollViewer>
+      <Grid Grid.Column="2"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+        <TextBlock x:Name="VideoCaption" Text="Ricevitore spento" Foreground="{DynamicResource Muted}" Margin="0,0,0,10" AutomationProperties.LiveSetting="Polite"/>
+        <Border Grid.Row="1" Background="#101112" BorderBrush="#101112" BorderThickness="1"><local:AirPlayVideoHost x:Name="VideoHost" Focusable="False" AutomationProperties.Name="Schermo Apple ricevuto"/></Border>
+      </Grid>
+    </Grid>
+    <Grid Grid.Row="2" Margin="0,18,0,0"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+      <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+        <TextBlock x:Name="ReceiverStatus" Text="Preparazione…" Margin="0,0,16,0" VerticalAlignment="Center" AutomationProperties.LiveSetting="Polite"/>
+        <Border Grid.Column="1" x:Name="PinToolbar" Visibility="Collapsed" Background="{DynamicResource Surface}" Padding="12,4" Margin="0,0,12,0"><TextBlock x:Name="PinCompact" FontFamily="Consolas" FontSize="24" FontWeight="SemiBold" AutomationProperties.Name="Codice AirPlay a schermo intero"/></Border>
+        <Button Grid.Column="2" x:Name="DetailsToggle" Content="Nascondi dettagli" Click="DetailsToggleClick" Margin="0,0,8,0"/><Button Grid.Column="3" x:Name="FullscreenButton" Content="Schermo intero · F11" Click="FullscreenClick" Margin="0,0,8,0"/>
+        <Button Grid.Column="4" x:Name="StopButton" Content="Interrompi ricezione" Click="StopClick" IsEnabled="False"/>
+      </Grid>
+      <Expander Grid.Row="1" x:Name="DiagnosticsPanel" Header="Diagnostica AirPlay" Margin="0,10,0,0"><TextBox x:Name="DiagnosticsBox" IsReadOnly="True" Height="100" FontFamily="Consolas" FontSize="11" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AutomationProperties.Name="Diagnostica AirPlay"/></Expander>
+    </Grid>
+  </Grid>
+</UserControl>

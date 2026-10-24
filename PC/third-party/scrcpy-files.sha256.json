@@ -1,0 +1,82 @@
+[
+  {
+    "name": "adb.exe",
+    "sha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f",
+    "bytes": 8273560
+  },
+  {
+    "name": "AdbWinApi.dll",
+    "sha256": "c1d653030b4bde65d3e07e4d0b0979e17be56df1436cdd15528630f27808050d",
+    "bytes": 108184
+  },
+  {
+    "name": "AdbWinUsbApi.dll",
+    "sha256": "0710e894d9b40f71a670c13c694079d564c92c1279da382cfe4850983aaebe1b",
+    "bytes": 73368
+  },
+  {
+    "name": "avcodec-63.dll",
+    "sha256": "191eead82d953d82f89f0c0fe6c961083cf1e31d0eb8467a72408b2fa9ce7498",
+    "bytes": 8685568
+  },
+  {
+    "name": "avformat-63.dll",
+    "sha256": "72df8f0258ba41f503736fddcc00fe35d4da030adac028f6793f597403c5a76a",
+    "bytes": 743424
+  },
+  {
+    "name": "avutil-61.dll",
+    "sha256": "c9700c1d751967c5da074b6c5527f89b741c5df9d6a5f3e5894d2e2295fe15e1",
+    "bytes": 1047552
+  },
+  {
+    "name": "disconnected.png",
+    "sha256": "e394873cd3e2cc3ab0cca6212b10ed2a8a0fad11a05675c8a9fa6f26f3ae12c0",
+    "bytes": 4703
+  },
+  {
+    "name": "libusb-1.0.dll",
+    "sha256": "b6f408ad4c1b2c52096a5636a625355f1b45a3bf8a153414b9707bf1b488467e",
+    "bytes": 227005
+  },
+  {
+    "name": "LICENSE.txt",
+    "sha256": "01c12035bf35af37241298dc7ad538eb2a07e5c940437bc6876feeaa9d1951d0",
+    "bytes": 11387
+  },
+  {
+    "name": "open_a_terminal_here.bat",
+    "sha256": "843758795a84d0d035a7d277ad29cc1ff1702048b4b61ae74b9e3439ae683423",
+    "bytes": 5
+  },
+  {
+    "name": "scrcpy-noconsole.vbs",
+    "sha256": "3ccda94c161f18cef07c50d4d3c4913eb883d4b0fe3b939c35fae52784fb1d2b",
+    "bytes": 212
+  },
+  {
+    "name": "scrcpy-server",
+    "sha256": "26cbc9ad0aced6c2282455bef4fb43462605c1f8758c74b4ab1dbf818c229daa",
+    "bytes": 733974
+  },
+  {
+    "name": "scrcpy.exe",
+    "sha256": "e129d2dbaf8a3ff14a0574f9684e1e8e1d03050a99a33ec8073930d3c9630ca8",
+    "bytes": 766668
+  },
+  {
+    "name": "scrcpy.png",
+    "sha256": "8e8ca237898faa16014cdd118396af53405b423f3db0508c50cc3edce08eb313",
+    "bytes": 6530
+  },
+  {
+    "name": "SDL3.dll",
+    "sha256": "7527363d8546fd6a9d61d9c118903207cebdb0a8c11290d4f84ba22aa86a8d62",
+    "bytes": 5384859
+  },
+  {
+    "name": "swresample-7.dll",
+    "sha256": "e36aad851dfdbb5064c4dadf6b6fb13b6a36269936c902f0629af3083b65a6cb",
+    "bytes": 139776
+  }
+]

@@ -1,0 +1,304 @@
+[
+  {
+    "source_carrier": "mingw-w64-gstreamer-1.28.8-1.src.tar.zst",
+    "upstream_archive": "mingw-w64-gstreamer/gstreamer-1.28.8.tar.xz",
+    "upstream_sha256": "baa8e86985ad6417cc0ad6e7b79ff2884c6779c8b1c7a6240e7121822c86e524",
+    "license_member": "gstreamer-1.28.8/COPYING",
+    "output": "mingw-w64-gstreamer-1.28.8-1--COPYING",
+    "sha256": "ad2eec519ebd4b5df86ea84dff24ae3bfa2edea846a703b58902dd221ae375db",
+    "bytes": 26431
+  },
+  {
+    "source_carrier": "mingw-w64-gst-plugins-base-1.28.8-1.src.tar.zst",
+    "upstream_archive": "mingw-w64-gst-plugins-base/gst-plugins-base-1.28.8.tar.xz",
+    "upstream_sha256": "ade70e3381fcbb024f1f20aa9ede9b5654aeed39d5bd70b1a98f53015e501117",
+    "license_member": "gst-plugins-base-1.28.8/COPYING",
+    "output": "mingw-w64-gst-plugins-base-1.28.8-1--COPYING",
+    "sha256": "ad2eec519ebd4b5df86ea84dff24ae3bfa2edea846a703b58902dd221ae375db",
+    "bytes": 26431
+  },
+  {
+    "source_carrier": "mingw-w64-gst-plugins-bad-1.28.8-2.src.tar.zst",
+    "upstream_archive": "mingw-w64-gst-plugins-bad/gst-plugins-bad-1.28.8.tar.xz",
+    "upstream_sha256": "670d888bde8242579b0d8e91f60cf337aa7be20ca7c315ebfbdd6e5a9218d104",
+    "license_member": "gst-plugins-bad-1.28.8/COPYING",
+    "output": "mingw-w64-gst-plugins-bad-1.28.8-2--COPYING",
+    "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551",
+    "bytes": 26530
+  },
+  {
+    "source_carrier": "mingw-w64-gst-plugins-good-1.28.8-1.src.tar.zst",
+    "upstream_archive": "mingw-w64-gst-plugins-good/gst-plugins-good-1.28.8.tar.xz",
+    "upstream_sha256": "a7670ed900d3d03be744d25c1873b239896e9a82ce6d17f8febc6fffbaee9521",
+    "license_member": "gst-plugins-good-1.28.8/COPYING",
+    "output": "mingw-w64-gst-plugins-good-1.28.8-1--COPYING",
+    "sha256": "6095e9ffa777dd22839f7801aa845b31c9ed07f3d6bf8a26dc5d2dec8ccc0ef3",
+    "bytes": 26432
+  },
+  {
+    "source_carrier": "mingw-w64-gst-libav-1.28.8-1.src.tar.zst",
+    "upstream_archive": "mingw-w64-gst-libav/gst-libav-1.28.8.tar.xz",
+    "upstream_sha256": "98ad3d7f8932c495e268708903f1c3388d5f26a0db34727a9f861ee23b724177",
+    "license_member": "gst-libav-1.28.8/COPYING",
+    "output": "mingw-w64-gst-libav-1.28.8-1--COPYING",
+    "sha256": "ad2eec519ebd4b5df86ea84dff24ae3bfa2edea846a703b58902dd221ae375db",
+    "bytes": 26431
+  },
+  {
+    "source_carrier": "mingw-w64-openssl-3.6.5-1.src.tar.zst",
+    "upstream_archive": "mingw-w64-openssl/openssl-3.6.5.tar.gz",
+    "upstream_sha256": "a2157c2830efdec3788939b00c9b0638306d3f0bbb76dc4832ee503bb397df98",
+    "license_member": "openssl-3.6.5/LICENSE.txt",
+    "output": "mingw-w64-openssl-3.6.5-1--LICENSE.txt",
+    "sha256": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a",
+    "bytes": 10175
+  },
+  {
+    "source_carrier": "mingw-w64-libplist-2.7.0-4.src.tar.zst",
+    "upstream_archive": "mingw-w64-libplist/libplist-2.7.0.tar.bz2",
+    "upstream_sha256": "7ac42301e896b1ebe3c654634780c82baa7cb70df8554e683ff89f7c2643eb8b",
+    "license_member": "libplist-2.7.0/COPYING.LESSER",
+    "output": "mingw-w64-libplist-2.7.0-4--COPYING.LESSER",
+    "sha256": "e237fa56668030e928551ddd60f05df5fe957f75eab874bbd017e085ed722e7c",
+    "bytes": 26434
+  },
+  {
+    "source_carrier": "mingw-w64-libplist-2.7.0-4.src.tar.zst",
+    "upstream_archive": "mingw-w64-libplist/libplist-2.7.0.tar.bz2",
+    "upstream_sha256": "7ac42301e896b1ebe3c654634780c82baa7cb70df8554e683ff89f7c2643eb8b",
+    "license_member": "libplist-2.7.0/COPYING",
+    "output": "mingw-w64-libplist-2.7.0-4--COPYING",
+    "sha256": "7619c753cac95d4740220223bde48a032606fcaccde5e546f9bc444c81ab356d",
+    "bytes": 17988
+  },
+  {
+    "source_carrier": "mingw-w64-gettext-1.0-1.src.tar.zst",
+    "format_note": ".tar.lz or embedded bare Git repository; original verified carrier is retained"
+  },
+  {
+    "source_carrier": "mingw-w64-gettext-1.0-1.src.tar.zst",
+    "license_origin": "gettext-runtime\\COPYING",
+    "output": "mingw-w64-gettext-1.0-1--gettext-runtime--COPYING",
+    "sha256": "7ef2cdfe58e0c0460657b6598b49af29d4e03c1e41cbaf0e1da1eb8ad74b95d0",
+    "bytes": 495
+  },
+  {
+    "source_carrier": "mingw-w64-libffi-3.8.0-1.src.tar.zst",
+    "upstream_archive": "mingw-w64-libffi/libffi-3.8.0.tar.gz",
+    "upstream_sha256": "7da3e2d9a171eb0a038f592ecad3ff2bb2550f3496d87b3b29ad0cf4430c0db4",
+    "license_member": "libffi-3.8.0/LICENSE-BUILDTOOLS",
+    "output": "mingw-w64-libffi-3.8.0-1--LICENSE-BUILDTOOLS",
+    "sha256": "e67978cd18816c0cb7d29aaaacde7b7447402c2fb321a051698890a8eaedda94",
+    "bytes": 18698
+  },
+  {
+    "source_carrier": "mingw-w64-libffi-3.8.0-1.src.tar.zst",
+    "upstream_archive": "mingw-w64-libffi/libffi-3.8.0.tar.gz",
+    "upstream_sha256": "7da3e2d9a171eb0a038f592ecad3ff2bb2550f3496d87b3b29ad0cf4430c0db4",
+    "license_member": "libffi-3.8.0/LICENSE",
+    "output": "mingw-w64-libffi-3.8.0-1--LICENSE",
+    "sha256": "17b64dc60f3b6897a60f971e288b973f655c2edcdf08b25f3c3dd5549857881c",
+    "bytes": 1132
+  },
+  {
+    "source_carrier": "mingw-w64-libffi-3.8.0-1.src.tar.zst",
+    "license_origin": "libffi\\LICENSE",
+    "output": "mingw-w64-libffi-3.8.0-1--libffi--LICENSE",
+    "sha256": "17b64dc60f3b6897a60f971e288b973f655c2edcdf08b25f3c3dd5549857881c",
+    "bytes": 1132
+  },
+  {
+    "source_carrier": "mingw-w64-gcc-16.2.0-6.src.tar.zst",
+    "upstream_archive": "mingw-w64-gcc/gcc-16.2.0.tar.xz",
+    "upstream_sha256": "e6738e29597f733270731aa90600f37ffdc045079dfc27ec7e8192cc81085c3e",
+    "license_member": "gcc-16.2.0/COPYING.RUNTIME",
+    "output": "mingw-w64-gcc-16.2.0-6--COPYING.RUNTIME",
+    "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74",
+    "bytes": 3324
+  },
+  {
+    "source_carrier": "mingw-w64-gcc-16.2.0-6.src.tar.zst",
+    "upstream_archive": "mingw-w64-gcc/gcc-16.2.0.tar.xz",
+    "upstream_sha256": "e6738e29597f733270731aa90600f37ffdc045079dfc27ec7e8192cc81085c3e",
+    "license_member": "gcc-16.2.0/COPYING3",
+    "output": "mingw-w64-gcc-16.2.0-6--COPYING3",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "bytes": 35147
+  },
+  {
+    "source_carrier": "mingw-w64-gcc-16.2.0-6.src.tar.zst",
+    "upstream_archive": "mingw-w64-gcc/gcc-16.2.0.tar.xz",
+    "upstream_sha256": "e6738e29597f733270731aa90600f37ffdc045079dfc27ec7e8192cc81085c3e",
+    "license_member": "gcc-16.2.0/COPYING.LIB",
+    "output": "mingw-w64-gcc-16.2.0-6--COPYING.LIB",
+    "sha256": "a9bdde5616ecdd1e980b44f360600ee8783b1f99b8cc83a2beb163a0a390e861",
+    "bytes": 26527
+  },
+  {
+    "source_carrier": "mingw-w64-gcc-16.2.0-6.src.tar.zst",
+    "upstream_archive": "mingw-w64-gcc/gcc-16.2.0.tar.xz",
+    "upstream_sha256": "e6738e29597f733270731aa90600f37ffdc045079dfc27ec7e8192cc81085c3e",
+    "license_member": "gcc-16.2.0/COPYING3.LIB",
+    "output": "mingw-w64-gcc-16.2.0-6--COPYING3.LIB",
+    "sha256": "a853c2ffec17057872340eee242ae4d96cbf2b520ae27d903e1b2fef1a5f9d1c",
+    "bytes": 7639
+  },
+  {
+    "source_carrier": "mingw-w64-gcc-16.2.0-6.src.tar.zst",
+    "upstream_archive": "mingw-w64-gcc/gcc-16.2.0.tar.xz",
+    "upstream_sha256": "e6738e29597f733270731aa90600f37ffdc045079dfc27ec7e8192cc81085c3e",
+    "license_member": "gcc-16.2.0/COPYING",
+    "output": "mingw-w64-gcc-16.2.0-6--COPYING",
+    "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c",
+    "bytes": 18002
+  },
+  {
+    "source_carrier": "mingw-w64-gcc-16.2.0-6.src.tar.zst",
+    "license_origin": "gcc\\COPYING.RUNTIME",
+    "output": "mingw-w64-gcc-16.2.0-6--gcc--COPYING.RUNTIME",
+    "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74",
+    "bytes": 3324
+  },
+  {
+    "source_carrier": "mingw-w64-gcc-16.2.0-6.src.tar.zst",
+    "license_origin": "gcc\\COPYING3",
+    "output": "mingw-w64-gcc-16.2.0-6--gcc--COPYING3",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "bytes": 35147
+  },
+  {
+    "source_carrier": "mingw-w64-gcc-16.2.0-6.src.tar.zst",
+    "license_origin": "libgcc\\COPYING.RUNTIME",
+    "output": "mingw-w64-gcc-16.2.0-6--libgcc--COPYING.RUNTIME",
+    "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74",
+    "bytes": 3324
+  },
+  {
+    "source_carrier": "mingw-w64-gcc-16.2.0-6.src.tar.zst",
+    "license_origin": "libgcc\\COPYING3",
+    "output": "mingw-w64-gcc-16.2.0-6--libgcc--COPYING3",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "bytes": 35147
+  },
+  {
+    "source_carrier": "mingw-w64-libiconv-1.19-1.src.tar.zst",
+    "upstream_archive": "mingw-w64-libiconv/libiconv-1.19.tar.gz",
+    "upstream_sha256": "88dd96a8c0464eca144fc791ae60cd31cd8ee78321e67397e25fc095c4a19aa6",
+    "license_member": "libiconv-1.19/COPYING.LIB",
+    "output": "mingw-w64-libiconv-1.19-1--COPYING.LIB",
+    "sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95",
+    "bytes": 26419
+  },
+  {
+    "source_carrier": "mingw-w64-libiconv-1.19-1.src.tar.zst",
+    "upstream_archive": "mingw-w64-libiconv/libiconv-1.19.tar.gz",
+    "upstream_sha256": "88dd96a8c0464eca144fc791ae60cd31cd8ee78321e67397e25fc095c4a19aa6",
+    "license_member": "libiconv-1.19/COPYING",
+    "output": "mingw-w64-libiconv-1.19-1--COPYING",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "bytes": 35147
+  },
+  {
+    "source_carrier": "mingw-w64-libiconv-1.19-1.src.tar.zst",
+    "license_origin": "libiconv\\COPYING",
+    "output": "mingw-w64-libiconv-1.19-1--libiconv--COPYING",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "bytes": 35147
+  },
+  {
+    "source_carrier": "mingw-w64-libiconv-1.19-1.src.tar.zst",
+    "license_origin": "libiconv\\COPYING.LIB",
+    "output": "mingw-w64-libiconv-1.19-1--libiconv--COPYING.LIB",
+    "sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95",
+    "bytes": 26419
+  },
+  {
+    "source_carrier": "mingw-w64-libiconv-1.19-1.src.tar.zst",
+    "license_origin": "libiconv\\README",
+    "output": "mingw-w64-libiconv-1.19-1--libiconv--README",
+    "sha256": "4ae66e61d1c6593c84c47105b368d579bcee1af566dbb959ec63a0c48425dcf4",
+    "bytes": 5741
+  },
+  {
+    "source_carrier": "mingw-w64-winpthreads-14.0.0.r495.g63ebe6cdb-2.src.tar.zst",
+    "format_note": ".tar.lz or embedded bare Git repository; original verified carrier is retained"
+  },
+  {
+    "source_carrier": "mingw-w64-winpthreads-14.0.0.r495.g63ebe6cdb-2.src.tar.zst",
+    "license_origin": "winpthreads\\COPYING",
+    "output": "mingw-w64-winpthreads-14.0.0.r495.g63ebe6cdb-2--winpthreads--COPYING",
+    "sha256": "63263614cdd29f2f93cba85e992f041b31f9fc7b4033692f31269489a8a1b177",
+    "bytes": 2883
+  },
+  {
+    "source_carrier": "mingw-w64-winpthreads-14.0.0.r495.g63ebe6cdb-2.src.tar.zst",
+    "license_origin": "libwinpthread\\COPYING",
+    "output": "mingw-w64-winpthreads-14.0.0.r495.g63ebe6cdb-2--libwinpthread--COPYING",
+    "sha256": "63263614cdd29f2f93cba85e992f041b31f9fc7b4033692f31269489a8a1b177",
+    "bytes": 2883
+  },
+  {
+    "source_carrier": "mingw-w64-orc-0.4.44-1.src.tar.zst",
+    "upstream_archive": "mingw-w64-orc/orc-0.4.44.tar.xz",
+    "upstream_sha256": "4aeb97aea2b58224029dc2b23d7d064cfa990cb4fb8c4da440bcbe9c95bc5d2d",
+    "license_member": "orc-0.4.44/COPYING",
+    "output": "mingw-w64-orc-0.4.44-1--COPYING",
+    "sha256": "4f5dabb1b44bb6fc5cd53820b1f103147ad61b395a57903991325bd1b85d97bf",
+    "bytes": 3124
+  },
+  {
+    "source_carrier": "mingw-w64-orc-0.4.44-1.src.tar.zst",
+    "license_origin": "orc\\COPYING",
+    "output": "mingw-w64-orc-0.4.44-1--orc--COPYING",
+    "sha256": "4f5dabb1b44bb6fc5cd53820b1f103147ad61b395a57903991325bd1b85d97bf",
+    "bytes": 3124
+  },
+  {
+    "source_carrier": "mingw-w64-pcre2-10.49-1.src.tar.zst",
+    "upstream_archive": "mingw-w64-pcre2/pcre2-10.49.tar.bz2",
+    "upstream_sha256": "53c156e1ba416a20da8e65395daa132da0d80e76910424caca3fcdae7831d384",
+    "license_member": "pcre2-10.49/COPYING",
+    "output": "mingw-w64-pcre2-10.49-1--COPYING",
+    "sha256": "99272c55f3dcfa07a8a7e15a5c1a33096e4727de74241d65fa049fccfdd59507",
+    "bytes": 97
+  },
+  {
+    "source_carrier": "mingw-w64-pcre2-10.49-1.src.tar.zst",
+    "upstream_archive": "mingw-w64-pcre2/pcre2-10.49.tar.bz2",
+    "upstream_sha256": "53c156e1ba416a20da8e65395daa132da0d80e76910424caca3fcdae7831d384",
+    "license_member": "pcre2-10.49/LICENCE.md",
+    "output": "mingw-w64-pcre2-10.49-1--LICENCE.md",
+    "sha256": "197d8a73ffee0d6b09adba2f9c677b5f5aede24edf89258a68e48248d010d811",
+    "bytes": 4011
+  },
+  {
+    "source_carrier": "mingw-w64-pcre2-10.49-1.src.tar.zst",
+    "license_origin": "pcre2\\COPYING",
+    "output": "mingw-w64-pcre2-10.49-1--pcre2--COPYING",
+    "sha256": "99272c55f3dcfa07a8a7e15a5c1a33096e4727de74241d65fa049fccfdd59507",
+    "bytes": 97
+  },
+  {
+    "source_carrier": "mingw-w64-pcre2-10.49-1.src.tar.zst",
+    "license_origin": "pcre2\\LICENCE.md",
+    "output": "mingw-w64-pcre2-10.49-1--pcre2--LICENCE.md",
+    "sha256": "197d8a73ffee0d6b09adba2f9c677b5f5aede24edf89258a68e48248d010d811",
+    "bytes": 4011
+  },
+  {
+    "source_carrier": "mingw-w64-zlib-1.3.2-2.src.tar.zst",
+    "upstream_archive": "mingw-w64-zlib/zlib-1.3.2.tar.xz",
+    "upstream_sha256": "d7a0654783a4da529d1bb793b7ad9c3318020af77667bcae35f95d0e42a792f3",
+    "license_member": "zlib-1.3.2/LICENSE",
+    "output": "mingw-w64-zlib-1.3.2-2--LICENSE",
+    "sha256": "e32ff4e00d9d94930537635291da39e7e612703334bf6fde8c7f1686fe8a45a2",
+    "bytes": 1002
+  },
+  {
+    "source_carrier": "mingw-w64-zlib-1.3.2-2.src.tar.zst",
+    "license_origin": "zlib\\LICENSE",
+    "output": "mingw-w64-zlib-1.3.2-2--zlib--LICENSE",
+    "sha256": "e32ff4e00d9d94930537635291da39e7e612703334bf6fde8c7f1686fe8a45a2",
+    "bytes": 1002
+  }
+]

@@ -1,0 +1,23 @@
+<Window Icon="/Major;component/Assets/Major.ico" Background="{DynamicResource AppBackground}" Foreground="{DynamicResource Ink}" FontFamily="Segoe UI" FontSize="14" x:Class="Major.HelpWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Guida e comandi · Major" Width="650" Height="660" MinWidth="520" MinHeight="500" WindowStartupLocation="CenterOwner">
+  <DockPanel Margin="28"><Button DockPanel.Dock="Bottom" Content="Chiudi" HorizontalAlignment="Right" Click="CloseClick" IsCancel="True" Margin="0,16,0,0"/><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="0,0,12,0">
+    <TextBlock Text="Guida e comandi" FontSize="24" FontWeight="SemiBold" Margin="0,0,0,24"/>
+    <TextBlock Text="Collegamento USB" Style="{StaticResource Section}"/>
+    <TextBlock Text="Abilita le opzioni sviluppatore di Android (tocca più volte Numero build in Informazioni sul telefono), poi Debug USB. Collega un cavo che trasmetta dati, sblocca il telefono e autorizza l'impronta RSA di questo computer. Seleziona il telefono e premi Avvia mirroring." Style="{StaticResource MutedText}" Margin="0,0,0,24"/>
+    <TextBlock Text="Nella finestra del telefono" Style="{StaticResource Section}"/>
+    <Grid Margin="0,0,0,24"><Grid.ColumnDefinitions><ColumnDefinition Width="180"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="32"/><RowDefinition Height="32"/><RowDefinition Height="32"/><RowDefinition Height="32"/><RowDefinition Height="32"/><RowDefinition Height="32"/><RowDefinition Height="32"/><RowDefinition Height="32"/></Grid.RowDefinitions>
+      <TextBlock Text="Clic / trascinamento"/><TextBlock Grid.Column="1" Text="Tocca / trascina sul telefono"/>
+      <TextBlock Grid.Row="1" Text="Rotella mouse"/><TextBlock Grid.Row="1" Grid.Column="1" Text="Scorre il contenuto"/>
+      <TextBlock Grid.Row="2" Text="Alt sinistro + F / F11"/><TextBlock Grid.Row="2" Grid.Column="1" Text="Schermo intero"/>
+      <TextBlock Grid.Row="3" Text="Alt sinistro + ← / →"/><TextBlock Grid.Row="3" Grid.Column="1" Text="Ruota la vista sul computer"/>
+      <TextBlock Grid.Row="4" Text="Alt sinistro + R"/><TextBlock Grid.Row="4" Grid.Column="1" Text="Richiede la rotazione ad Android"/>
+      <TextBlock Grid.Row="5" Text="Alt sinistro + H / B"/><TextBlock Grid.Row="5" Grid.Column="1" Text="Home / Indietro"/>
+      <TextBlock Grid.Row="6" Text="Ctrl + V"/><TextBlock Grid.Row="6" Grid.Column="1" Text="Incolla appunti sul telefono"/>
+      <TextBlock Grid.Row="7" Text="Alt sinistro + C"/><TextBlock Grid.Row="7" Grid.Column="1" Text="Copia selezione Android sul PC"/>
+    </Grid>
+    <TextBlock Text="Se qualcosa non funziona" Style="{StaticResource Section}"/>
+    <TextBlock Text="Nessun dispositivo: prova un altro cavo o porta, verifica Debug USB e installa il driver USB ufficiale del produttore se richiesto. Non autorizzato: accetta la richiesta sul telefono. Input bloccato: alcuni produttori richiedono anche Debug USB (impostazioni sicurezza) e un riavvio. Non modificare queste impostazioni se il telefono è gestito dalla tua organizzazione." Style="{StaticResource MutedText}" Margin="0,0,0,16"/>
+    <TextBlock Text="Tastiera: il metodo standard ha limiti con Unicode e layout. Per una tastiera fisica virtuale attiva UHID (Android 9+) e scegli il layout nelle impostazioni Android. Gli appunti possono richiedere Android 7 o successivo; alcuni campi o app ne limitano l'uso." Style="{StaticResource MutedText}" Margin="0,0,0,16"/>
+    <TextBlock Text="Registrazione: selezionala prima dell'avvio. Termina la sessione dalla finestra o dal pannello per finalizzare il file. Dopo una disconnessione imprevista il file può essere incompleto; una riconnessione crea un nuovo segmento. Audio non incluso in questa versione." Style="{StaticResource MutedText}" Margin="0,0,0,16"/>
+    <TextBlock Text="Major 0.1.0 · Interfaccia e codice originali. Motore scrcpy 5.0 e Android Debug Bridge. Nessun account o servizio online richiesto. Licenze e sorgenti dei componenti sono inclusi nel pacchetto." FontSize="12" Foreground="{DynamicResource Muted}"/>
+  </StackPanel></ScrollViewer></DockPanel>
+</Window>

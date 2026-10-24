@@ -1,0 +1,2 @@
+2196d658b8db598d051324d17443ea36dfada133e3eec3aa8bea200c5f03cb41  Major-0.5.1-win-x64.zip
+038d9d125c2f2f576e91f451a12ac8efdf59746454ad5342ace7d6436d87a43b  Major-Android-0.3.0-debug.apk

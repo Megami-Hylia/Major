@@ -1,0 +1,26 @@
+<Window Icon="/Major;component/Assets/Major.ico" Background="{DynamicResource AppBackground}" Foreground="{DynamicResource Ink}" FontFamily="Segoe UI" FontSize="14" x:Class="Major.WifiWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Collega via Wi-Fi · Major" Width="600" Height="700" MinWidth="540" MinHeight="650" WindowStartupLocation="CenterOwner" Closed="OnClosed">
+  <DockPanel Margin="24">
+    <StackPanel DockPanel.Dock="Top"><TextBlock Text="Collega via Wi-Fi" FontSize="24" FontWeight="SemiBold" Margin="0,0,0,10"/>
+    <TextBlock Text="Android 11+ · Computer e telefono sulla stessa rete." Style="{StaticResource MutedText}" Margin="0,0,0,20"/></StackPanel>
+    <StackPanel DockPanel.Dock="Bottom"><TextBlock x:Name="ResultText" Text="Il codice non viene salvato. Puoi usare USB in alternativa." Margin="0,16,0,12" Style="{StaticResource MutedText}" AutomationProperties.LiveSetting="Polite"/>
+    <Button Content="Chiudi" Click="CloseClick" HorizontalAlignment="Right" IsCancel="True"/></StackPanel>
+    <ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel>
+    <Border Background="{DynamicResource Surface}" CornerRadius="8" Padding="20" Margin="0,0,0,20"><StackPanel>
+      <TextBlock Text="Associa il computer" Style="{StaticResource Section}"/>
+      <TextBlock Text="Sul telefono apri Opzioni sviluppatore → Debug wireless → Associa dispositivo con codice. Mantieni aperta questa schermata e riporta l'indirizzo e il codice mostrati." Style="{StaticResource MutedText}" Margin="0,0,0,16"/>
+      <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="16"/><ColumnDefinition Width="132"/></Grid.ColumnDefinitions>
+      <StackPanel><Label Content="Indirizzo (IP:porta)" Target="{Binding ElementName=PairEndpoint}" Padding="0,0,0,6"/>
+      <TextBox x:Name="PairEndpoint" AutomationProperties.Name="Indirizzo di associazione" ToolTip="Ad esempio 192.168.1.42:37123"/></StackPanel>
+      <StackPanel Grid.Column="2"><Label Content="Codice a 6 cifre" Target="{Binding ElementName=PairCode}" Padding="0,0,0,6"/>
+      <PasswordBox x:Name="PairCode" MaxLength="6" AutomationProperties.Name="Codice di associazione"/></StackPanel></Grid>
+      <Button x:Name="PairButton" Content="Associa computer" Click="PairClick" HorizontalAlignment="Left" Margin="0,16,0,0"/>
+    </StackPanel></Border>
+    <Border Background="{DynamicResource Surface}" CornerRadius="8" Padding="20"><StackPanel>
+      <TextBlock Text="Connetti il telefono" Style="{StaticResource Section}"/>
+      <TextBlock Text="Torna alla schermata principale di Debug wireless. Inserisci l'indirizzo IP e la porta di connessione: la porta è normalmente diversa da quella di associazione. Se il telefono è già associato, puoi iniziare da qui." Style="{StaticResource MutedText}" Margin="0,0,0,16"/>
+      <Label Content="Indirizzo di connessione (IP:porta)" Target="{Binding ElementName=ConnectEndpoint}" Padding="0,0,0,6"/>
+      <TextBox x:Name="ConnectEndpoint" AutomationProperties.Name="Indirizzo di connessione"/>
+      <Button x:Name="ConnectButton" Content="Connetti dispositivo" Style="{StaticResource Primary}" Click="ConnectClick" HorizontalAlignment="Left" Margin="0,16,0,0"/>
+    </StackPanel></Border>
+  </StackPanel></ScrollViewer></DockPanel>
+</Window>

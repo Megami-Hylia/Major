@@ -1,0 +1,54 @@
+PASS: parse ADB, model, duplicates, daemon noise
+PASS: unauthorized/offline/multiple transports
+PASS: endpoint 192.168.1.2:12345
+PASS: endpoint phone.local:65535
+PASS: endpoint [fe80::1234]:37001
+PASS: endpoint localhost:1
+PASS: reject endpoint 
+PASS: reject endpoint -bad:42
+PASS: reject endpoint 1.2.3.4:0
+PASS: reject endpoint 1.2.3.4:65536
+PASS: reject endpoint [::1]
+PASS: reject endpoint host:abc
+PASS: reject endpoint host:12 & calc
+PASS: reject endpoint host:12 calc
+PASS: reject endpoint ::1:55
+PASS: reject endpoint host: 5
+PASS: reject serial
+PASS: reject serial
+PASS: reject serial
+PASS: reject serial
+PASS: scrcpy explicit serial and video settings
+PASS: scrcpy recording path and controls flags
+PASS: invalid resolution
+PASS: invalid bitrate
+PASS: invalid framerate
+PASS: invalid recording extension
+PASS: refuse recording overwrite
+PASS: existing recording preserved
+PASS: ArgumentList preserves literal shell metacharacters and Unicode
+PASS: parallel pipe drain with bounded output
+PASS: process timeout kills child
+PASS: timeout is bounded
+PASS: external cancellation kills child
+PASS: DeviceService invokes selected ADB process
+PASS: pairing uses stdin and redacts code
+PASS: pairing validates six digits
+PASS: wireless connect success
+PASS: ADB zero-exit connection failure is still failure
+PASS: screenshot binary PNG preserved
+PASS: screenshot refuses overwrite
+PASS: screenshot rejects non-PNG response
+PASS: failed screenshot leaves no partial destination or temp file
+PASS: screenshot reports unauthorized ADB failure
+PASS: mirror owns launched session
+PASS: duplicate sessions rejected
+PASS: stop owns child, cleans session and notifies exactly once
+PASS: disconnection waits for bounded reconnect
+PASS: reconnect wait is cancellable
+PASS: startup failure is removed without reconnect loop
+PASS: unauthorized mirror rejected before process launch
+PASS: synchronous start-log listener can stop fully published session
+PASS: concurrent multi-device sessions are tracked independently
+PASS: concurrent duplicate stop requests clean every owned session
+All 53 checks passed. No Android hardware used.

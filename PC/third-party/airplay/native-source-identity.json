@@ -1,0 +1,27 @@
+{
+  "upstreamCommit": "15a6b87172eca38b0df4e615fbf1bba108734dde",
+  "upstreamVersion": "1.74 EXPERIMENTAL",
+  "modifiedDate": "2026-10-21",
+  "files": [
+    {
+      "path": "third-party/airplay/sources/UxPlay-15a6b87172eca38b0df4e615fbf1bba108734dde.zip",
+      "bytes": 643560,
+      "sha256": "437622bc66f81c88266e7b01ba93dcd9f8637b0bb9f3be1488556eaaae0853e8"
+    },
+    {
+      "path": "third-party/airplay/major-embedded.patch",
+      "bytes": 17248,
+      "sha256": "6e04afd779bb5dd16153cbb42e8e7337721e08241a504d5344128518e17343a1"
+    },
+    {
+      "path": "third-party/airplay/sources/Major-UxPlay-modified.zip",
+      "bytes": 619864,
+      "sha256": "dbf1c075ba4cdc8285c25a7c681cd66e8b15871e61a857fc7d5aa17d6ea941e1"
+    },
+    {
+      "path": "tools/airplay/uxplay.exe",
+      "bytes": 732984,
+      "sha256": "381fd9f1714f1705bd6450baf2ea44c6ccf0a51804d03652133212c46886da23"
+    }
+  ]
+}

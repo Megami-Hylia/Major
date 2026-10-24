@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Major</AssemblyName>
+    <Product>Major</Product>
+    <ApplicationIcon>Assets/Major.ico</ApplicationIcon>
+    <Description>Android e AirPlay sul tuo desktop, senza abbonamenti.</Description>
+    <Version>0.5.1</Version>
+  </PropertyGroup>
+  <ItemGroup><Resource Include="Assets/Major.png" /><Resource Include="Assets/Major.ico" /></ItemGroup>
+  <ItemGroup><ProjectReference Include="../Major.Core/Major.Core.csproj" /></ItemGroup>
+  <ItemGroup><ProjectReference Include="../Major.Streaming/Major.Streaming.csproj" /></ItemGroup>
+  <ItemGroup><ProjectReference Include="../Major.AirPlay/Major.AirPlay.csproj" /></ItemGroup>
+  <ItemGroup>
+    <Content Include="../../tools/scrcpy/**/*" Link="tools/scrcpy/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Never" />
+    <Content Include="../../tools/airplay/**/*" Link="tools/airplay/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+</Project>

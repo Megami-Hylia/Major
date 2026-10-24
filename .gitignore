@@ -1,0 +1,15 @@
+**/bin/
+**/obj/
+**/.cache/
+**/.build-tools/
+**/build/
+**/__pycache__/
+PC/tools/
+PC/third-party/sources/
+PC/third-party/airplay/sources/*.src.tar.*
+*.user
+*.pfx
+*.p12
+*.keystore
+*.jks
+local.properties
