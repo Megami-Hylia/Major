@@ -31,8 +31,8 @@ PC e dispositivo devono trovarsi sulla stessa rete locale per le modalità Wi-Fi
 
 ```powershell
 .\PC\scripts\Restore-ReleaseDependencies.ps1
-.\PC\scriptsootstrap.ps1 -InstallSdk
-.\PC\scriptsuild.ps1
+.\PC\scripts\bootstrap.ps1 -InstallSdk
+.\PC\scripts\build.ps1
 ```
 
 Il primo comando acquisisce la release Windows verificata tramite SHA-256 e ripristina le dipendenze escluse da Git. Il bootstrap installa localmente l’SDK fissato; non serve una sottoscrizione. La build viene generata in `PC/build/Major`. Per l’utente finale è sufficiente il pacchetto Windows già pronto.
